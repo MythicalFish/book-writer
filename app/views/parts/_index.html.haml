@@ -1,0 +1,32 @@
+- if @parts.any?
+  - @parts.order(:number).each do |part|
+    %a{:href => edit_part_path(part.id), :class => "block bg-gray-light gray-darkerer pb2 pt3 px3 quality-#{part.quality} #{part.style}",  :data => {:remote => 'true'}}
+      %h1= part.title
+      .h5.summary= part.summarized
+    - unless part.chapters.any?
+      .bg-black.p4
+
+    - else
+      - part.chapters.order(:number).each do |chapter|
+        %a{:href => edit_chapter_path(chapter.id), :class => "block bg-gray-darker gray-light p2 px3 quality-#{chapter.quality} #{chapter.style}", :data => {:remote => 'true'}}
+          %h2.m0= chapter.title
+          .h6.mt2.summary= chapter.summarized
+        - if chapter.segments.any?
+          .bg-gray-darkest
+            - chapter.segments.order('position ASC').each do |segment|
+              %a{:href => edit_segment_path(segment.id), :class => "list-item block gray-light py1 px3 quality-#{segment.quality} #{segment.style}", :data => {:remote => 'true'}}
+                .pl3
+                  %h3.m0.pb1= segment.title
+                  .h6.summary
+                    = segment.summarized
+
+.clearfix
+  .col.col-4
+    %a.btn.block.bg-white.border-right.gray.center.p2{:href => new_part_path, :data => {:remote => 'true'}}
+      New part
+  .col.col-4
+    %a.btn.block.bg-white.border-right.gray.center.p2{:href => new_chapter_path, :data => {:remote => 'true'}}
+      New chapter
+  .col.col-4
+    %a.btn.block.bg-white.gray.center.p2{:href => new_segment_path, :data => {:remote => 'true'}}
+      New segment

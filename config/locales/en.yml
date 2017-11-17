@@ -1,0 +1,70 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  title:
+    site: "Book creator"
+    segments: "Segments"
+    chapters: "Chapters"
+    help: "Help"
+    login: "Log in"
+    qusus-editor: "Editor"
+    segment-editor: "Segment Editor"
+    categorize: "Categorize"
+    brand-wizard: "Brand wizard"
+    brand-editor: "Brand editor"
+    segment-about: "This segment is about"
+    segment-for: "This segment is for"
+    target-groups: 'Target groups'
+  status:
+    pending: "Pending"
+    uncategorized: "Uncategorized"
+    rejected: "Rejected"
+    published: "Published"
+  label:
+    status: "Status"
+    select-chapter: "Select a chapter"
+  button:
+    cancel: "Cancel"
+    publish: "Publish"
+    update: "Update"
+    delete: "Delete"
+    save: "Save changes"
+    reset: "Reset"
+  notice:
+    image-missing: "Image is missing"
+    image-present: "Image is present"
+    segment-rejected: "This segment has been rejected"
+    segment-pending: "This segment is pending approval"
+    segment-published: "This segment has been published"
+    author-undefined: "Author undefined"
+    date-undefined: "Date undefined"
+    country-undefined: "Country undefined"
+    no-segment: "No segment selected"
+    no-segments: "No segments found for current filter"
+    no-country-for-segment: "You must select the country of the current segment"
+    no-logo: "Please upload a brand logo"
+  instruction:
+    enter-email: "Enter your email address"
+  errors:
+    current_revision: "Specified revision ID is not associated"
+  misc:
+    ago: 'ago'

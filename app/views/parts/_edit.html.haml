@@ -1,0 +1,48 @@
+- if @part.present?
+  = form_for @part, :remote => true, :html => { :class => 'flex flex-auto flex-stretch flex-column' } do |f|
+
+    .clearfix.flex-none
+      .col.col-6.border-bottom
+        = f.text_field :number, :class => 'field block col-12 border-right', :placeholder => 'Position'
+      .col.col-6.border-bottom
+        = select_tag 'part[quality]', options_for_select(Segment.qualities, @part.quality), :class => 'block field p2 col-12'
+      .col.col-4.gray-light
+        .p2.center.border-right
+          - if @part.use_draft_text
+            - main_class = 'display-none'
+            = radio_button_tag 'view', 'main'
+          - else
+            - main_class = ''
+            = radio_button_tag 'view', 'main', :checked => true
+          Main
+      .col.col-4.gray-light
+        .p2.center.border-right
+          - if @part.use_draft_text
+            - draft_class = ''
+            = radio_button_tag 'view', 'draft', :checked => true
+          - else
+            - draft_class = 'display-none'
+            = radio_button_tag 'view', 'draft'
+          Draft
+      .col.col-4
+        .p2.center.gray-light
+          = radio_button_tag 'view', 'summary'
+          Summary
+      .col.col-12.border-top
+        = f.text_field :title, :class => 'field block col-12 border-right', :placeholder => 'Part title'
+
+    = text_area_tag( 'part[description]', @part.description, :class => "flex-auto border-top p4 bg-gray-light gray-dark #{main_class}", :placeholder => 'Description', :id => 'main' )
+
+    = text_area_tag( 'part[draft_text]', @part.draft_text, :class => "flex-auto border-top p4 bg-gray-light gray-dark #{draft_class}", :placeholder => 'Draft text', :id => 'draft' )
+
+    = text_area_tag( 'part[summary]', @part.summary, :class => 'flex-auto border-top p4 bg-gray-light gray-dark display-none', :placeholder => 'Summary', :id => 'summary' )
+
+    .clearfix.flex-none
+      .col.col-8.px2.gray
+        = f.hidden_field :use_draft_text, :value => false
+      .col.col-4
+        = f.submit t('button.save'), :class => 'btn block col-12 py2 px3 lime bg-gray-darkest', :name => 'save'
+
+
+- else
+  No part selected

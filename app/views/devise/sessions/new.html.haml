@@ -1,0 +1,17 @@
+#content.flex.column.center
+  = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'container content pad-xl depth-2' }) do |f|
+    %h2= t('title.login')
+    .field
+      = f.label :email, :class => 'label-above'
+      = f.email_field :email, autofocus: true, class: 'text-input'
+    .field
+      = f.label :password, :class => 'label-above'
+      = f.password_field :password, autocomplete: "off", class: 'text-input'
+    .flex
+      %div
+        = render "devise/shared/links"
+      .text-right
+        - if devise_mapping.rememberable?
+          = f.label :remember_me
+          = f.check_box :remember_me
+        = f.submit "Log in", class: 'btn btn-tigerlily'

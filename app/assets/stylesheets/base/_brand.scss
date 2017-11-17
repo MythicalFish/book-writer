@@ -1,0 +1,40 @@
+/*--------------------------------------*\
+      Brand colors
+\*--------------------------------------*/
+/*
+$brand1: #133C55;
+$brand2: #386FA4;
+$brand3: #59A5D8;
+$brand4: #84D2F6;
+$brand5: #91E5F6;
+
+$brand1: #8CC739;
+$brand2: #085DAD;
+$brand3: #21BEDE;
+$brand4: #FFF;
+$brand5: #31C3E7;
+$brand6: #ADB6B5;
+$brand1: #158fbf;
+$brand2: #0e5673;
+$brand3: #bbe2f2;
+$brand4: #3dbcd9;
+$brand5: #030406;
+*/
+
+$brand1: #20BF55; // Green
+$brand2: #0B4F6C; // Dark blue
+$brand3: #01BAEF; // Light blue
+$brand4: #f4f4f7; // White
+$brand5: #757575; // Grey
+
+.brand1 { color: $brand1 }
+.brand2 { color: $brand2 }
+.brand3 { color: $brand3 }
+.brand4 { color: $brand4 }
+.brand5 { color: $brand5 }
+
+.bg-brand1 { background-color: $brand1 }
+.bg-brand2 { background-color: $brand2 }
+.bg-brand3 { background-color: $brand3 }
+.bg-brand4 { background-color: $brand4 }
+.bg-brand5 { background-color: $brand5 }
