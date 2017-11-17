@@ -4,3 +4,7 @@ log/
 *.DS_Store
 .byebug_history
 *.sqlite3
+node_modules/
+/public/packs
+/public/packs-test
+/node_modules

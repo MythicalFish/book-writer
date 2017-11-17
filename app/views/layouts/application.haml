@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    %title Book writer
+    = javascript_pack_tag('application')
+    = javascript_pack_tag('hello_vue')
+    = stylesheet_pack_tag('hello_vue')
+    = csrf_meta_tags
+    %link{ :href => image_path('favicon.png'), :rel => 'icon', :type => 'image/png'}
+  %body
+    = yield

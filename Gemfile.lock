@@ -43,13 +43,6 @@ GEM
     bindex (0.5.0)
     builder (3.2.3)
     byebug (9.1.0)
-    coffee-rails (4.2.2)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.2)
     devise (4.3.0)
@@ -83,12 +76,6 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
-    jquery-rails (4.3.1)
-      rails-dom-testing (>= 1, < 3)
-      railties (>= 4.2.0)
-      thor (>= 0.14, < 2.0)
-    jquery-ui-rails (6.0.1)
-      railties (>= 3.2.16)
     libv8 (3.16.14.19)
     loofah (2.1.1)
       crass (~> 1.0.2)
@@ -106,6 +93,8 @@ GEM
     orm_adapter (0.5.0)
     pandoc-ruby (2.0.2)
     rack (2.0.3)
+    rack-proxy (0.6.2)
+      rack
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
     rails (5.1.4.rc1)
@@ -184,6 +173,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webpacker (3.0.2)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -193,12 +186,9 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  coffee-rails
   devise
   haml-rails
   jbuilder
-  jquery-rails
-  jquery-ui-rails
   pandoc-ruby
   rails (>= 5.0.0.rc2, < 5.1.4)
   sass-rails
@@ -208,6 +198,7 @@ DEPENDENCIES
   turbolinks
   uglifier
   web-console
+  webpacker
 
 BUNDLED WITH
    1.16.0

@@ -5,15 +5,12 @@ gem 'sqlite3'
 gem 'haml-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'sass-rails'
-gem 'coffee-rails'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-#gem 'epic-editor-rails' # limits rails version
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'uglifier'
 gem 'pandoc-ruby'
 gem 'devise'
+gem 'webpacker'
 
 group :development do
   gem 'byebug'
