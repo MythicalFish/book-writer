@@ -11,8 +11,8 @@ class Book
       "sansfont:'Bebas Neue'",
       "colorlinks:'true'",
 
-      "title-meta:'Book creator'",
-      "title:'Book creator'",
+      "title-meta:'Book writer'",
+      "title:'Book writer'",
       "subtitle:''",
       "author-meta:'Richard Jake Broughton-Tompkins'"
 
