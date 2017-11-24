@@ -3,6 +3,9 @@
   %head
     %title Book writer
     = csrf_meta_tags
+    = javascript_include_tag('application') # Provides turbolinks
     %link{ :href => image_path('favicon.png'), :rel => 'icon', :type => 'image/png'}
   %body
+    = javascript_pack_tag('application')
+    = stylesheet_pack_tag('application')
     = yield
