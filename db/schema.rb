@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124105940) do
+ActiveRecord::Schema.define(version: 20171124110304) do
 
   create_table "chapters", force: :cascade do |t|
     t.string "title", limit: 255
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20171124105940) do
     t.string "filename"
     t.index ["number"], name: "index_chapters_on_number"
     t.index ["part_id"], name: "index_chapters_on_part_id"
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "user_id"
+    t.index ["title"], name: "index_documents_on_title"
+    t.index ["user_id"], name: "index_documents_on_user_id"
   end
 
   create_table "parts", force: :cascade do |t|
@@ -57,6 +64,9 @@ ActiveRecord::Schema.define(version: 20171124105940) do
     t.string "summary"
     t.text "elaboration"
     t.integer "order", default: 0
+    t.integer "document_id"
+    t.index ["document_id"], name: "index_statements_on_document_id"
+    t.index ["order"], name: "index_statements_on_order"
   end
 
   create_table "users", force: :cascade do |t|
