@@ -5,10 +5,15 @@
       <el-form ref="form" :model="form">
         <el-form-item label="Document title">
           <el-input v-model="form.title"></el-input>
-          <el-button v-on:click="submit">Create</el-button>
+          <el-button v-on:click="createDocument">Create</el-button>
         </el-form-item>
       </el-form>
     </div>
+    <ul v-for="document in documents" :key="document.id">
+      <li>
+        <a :href="document.path">{{document.title}}</a>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -28,10 +33,9 @@ export default {
       this.$http.get('/documents').then(response => {
         this.documents = response.data
         console.log(response.data)
-        // or like this this.getTemp = response.json()
       })
     },
-    submit() {
+    createDocument() {
       this.$http.post('/documents', {
         document: this.form,
         authenticity_token: this.authToken
@@ -43,10 +47,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
-</style>

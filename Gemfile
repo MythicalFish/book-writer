@@ -11,6 +11,7 @@ gem 'uglifier'
 gem 'pandoc-ruby'
 gem 'devise'
 gem 'webpacker'
+gem 'active_model_serializers', '~> 0.10.5'
 
 group :development do
   gem 'byebug'

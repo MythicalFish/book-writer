@@ -10,10 +10,16 @@ class DocumentsController < ApplicationController
   # using Rails & Webpacker over a Rails API with a seperate frontend.
   
   def index
-    @documents = current_user.documents 
     respond_to do |format|
       format.html 
-      format.json { render json: @documents }
+      format.json { render json: current_user.documents }
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.html 
+      format.json { render json: current_user.documents.find(params[:id]) }
     end
   end
 
