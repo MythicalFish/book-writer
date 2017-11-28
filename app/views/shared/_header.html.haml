@@ -1,6 +1,0 @@
-%header.flex-none.flex.flex-stretch.flex-center.border-bottom.bg-gray-darkerer.p2
-  %h1.flex.flex-center.flex-auto.h2.m0= t('title.site')
-  .flex-none.right-align
-    - if user_signed_in?
-      = current_user.email
-      %br= link_to 'Logout', destroy_user_session_path, :method => :delete
