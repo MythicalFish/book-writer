@@ -5,10 +5,6 @@ class DocumentsController < ApplicationController
   # serves to provide the container div + JS, which then calls this
   # controller again to do the actual work.
 
-  # I could have used Vue Router to achieve the same thing, but this 
-  # is quicker & easier, and is one of the advantages provided by
-  # using Rails & Webpacker over a Rails API with a seperate frontend.
-  
   def index
     respond_to do |format|
       format.html 
@@ -24,15 +20,13 @@ class DocumentsController < ApplicationController
 
   def create
     @document = current_user.documents.create(document_params)
-    respond_to do |format|
-      format.json { render json: @document }
-    end
+    index
   end
 
   private
 
   def document_params
-    params.require(:document).permit([:title])
+    params.require(:document).permit(:title)
   end
 
 end

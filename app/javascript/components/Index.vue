@@ -35,10 +35,14 @@ export default {
       })
     },
     createDocument() {
-      this.$http.post('/documents', {
-        document: this.form,
-        authenticity_token: this.authToken
-      })
+      this.$http
+        .post('/documents', {
+          document: this.form
+        })
+        .then(response => {
+          this.documents = response.data
+          this.isCreating = false
+        })
     }
   },
   created() {
