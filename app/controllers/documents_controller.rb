@@ -1,9 +1,9 @@
 class DocumentsController < ApplicationController
 
   # This app is partly standard Rails, and partly an SPA.
-  # The index & edit actions do load standard HTML views, but those
-  # only serve to provide the bookmarkable URLs, and the Vue JS, which
-  # then calls this controller again to do the actual work.
+  # The index action does load a standard HTML view, but it only
+  # serves to provide the container div + JS, which then calls this
+  # controller again to do the actual work.
 
   # I could have used Vue Router to achieve the same thing, but this 
   # is quicker & easier, and is one of the advantages provided by
@@ -18,7 +18,6 @@ class DocumentsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html 
       format.json { render json: current_user.documents.find(params[:id]) }
     end
   end
