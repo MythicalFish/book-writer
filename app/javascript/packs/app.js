@@ -7,11 +7,12 @@ import App from '../components/App'
 import Index from '../components/Index'
 import Edit from '../components/Edit'
 import 'element-ui/lib/theme-chalk/index.css'
+import store from '../store'
 
 Vue.use(TurbolinksAdapter)
 Vue.use(VueRouter)
-Vue.use(ElementUI)
 Vue.use(VueResource)
+Vue.use(ElementUI)
 
 const router = new VueRouter({
   routes: [
@@ -30,6 +31,7 @@ document.addEventListener('turbolinks:load', () => {
     new Vue({
       el: '#app',
       router,
+      store,
       template: '<App />',
       render: h => h(App)
     })
