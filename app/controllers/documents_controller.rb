@@ -4,6 +4,8 @@ class DocumentsController < ApplicationController
   # The index action does load a standard HTML view, but it only
   # serves to provide the container div + JS, which then calls this
   # controller again to do the actual work.
+  
+  before_action :set_document, except: [:index, :create]
 
   def index
     respond_to do |format|
@@ -13,17 +15,24 @@ class DocumentsController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.json { render json: current_user.documents.find(params[:id]) }
-    end
+    render json: @document
   end
 
   def create
-    @document = current_user.documents.create(document_params)
+    current_user.documents.create(document_params)
+    index
+  end
+
+  def destroy
+    @document.destroy!
     index
   end
 
   private
+
+  def set_document
+    @document = current_user.documents.find(params[:id])
+  end
 
   def document_params
     params.require(:document).permit(:title)

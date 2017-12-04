@@ -4,6 +4,7 @@
     %title Book writer
     %link{ :href => image_path('favicon.png'), :rel => 'icon', :type => 'image/png'}
     = javascript_include_tag('application') # Provides turbolinks
+    = stylesheet_link_tag 'application', media: 'all'
     = javascript_pack_tag('app')
     = stylesheet_pack_tag('app')
     = csrf_meta_tags

@@ -1,20 +1,12 @@
 import * as actions from './actions'
 import * as mutations from './mutations'
-
-const state = {
-  new: {
-    showForm: false,
-    formData: {
-      title: null
-    }
-  },
-  index: [],
-  active: {}
-}
+import * as getters from './getters'
+import state from './state'
 
 export default {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
+  getters
 }
