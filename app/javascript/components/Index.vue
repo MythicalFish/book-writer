@@ -9,12 +9,12 @@
         </el-form-item>
       </el-form>
     </div>
-    <div v-for="doc in index" :key="doc.id">
+    <div v-for="doc in list" :key="doc.id">
       <el-row class="asd">
         <el-col :span="20">
-          <el-form v-if="editing(doc.id)" ref="form" :model="edit.formData" @submit.prevent.native="update">
+          <el-form v-if="isEditing(doc.id)" ref="form" :model="editing" @submit.prevent.native="update">
             <el-form-item>
-              <el-input autofocus v-model="edit.formData.title"></el-input>
+              <el-input autofocus v-model="editing.title"></el-input>
             </el-form-item>
           </el-form>
           <div v-else>
@@ -22,7 +22,8 @@
           </div>
         </el-col>
         <el-col :span="4">
-          <el-button icon="el-icon-edit" size="mini" v-on:click="showformEdit(doc)"></el-button>
+          <el-button v-if="!isEditing(doc.id)" icon="el-icon-edit" size="mini" v-on:click="showformEdit(doc)"></el-button>
+          <el-button v-if="isEditing(doc.id)" icon="el-icon-check" size="mini" v-on:click="update"></el-button>
           <el-button icon="el-icon-delete" size="mini" v-on:click="destroy(doc)"></el-button>
         </el-col>
       </el-row>
@@ -32,15 +33,15 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapActions, mapGetters } = createNamespacedHelpers('index')
+const { mapState, mapActions, mapGetters } = createNamespacedHelpers('document')
 export default {
   computed: {
     ...mapState({
-      index: state => state.index,
+      list: state => state.list,
       newDoc: state => state.new,
-      edit: state => state.edit
+      editing: state => state.editing
     }),
-    ...mapGetters(['editing'])
+    ...mapGetters(['isEditing'])
   },
   methods: {
     ...mapActions([
@@ -48,14 +49,14 @@ export default {
       'showformNew',
       'showformEdit',
       'hideformEdit',
-      'fetchList',
+      'index',
       'create',
       'destroy',
       'update'
     ])
   },
   created() {
-    this.fetchList()
+    this.index()
   }
 }
 </script>

@@ -1,7 +1,11 @@
 class StatementsController < ApplicationController
 
   before_action :set_document
-  before_action :set_statement, except: :create
+  before_action :set_statement, except: [:index, :create]
+
+  def index
+    render_list
+  end
 
   def create
     @document.statements.create!(statement_params)

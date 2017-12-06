@@ -6,19 +6,16 @@ export const HIDEFORM_NEW = state => {
   state.new = {
     showForm: false,
     isLoading: false,
-    formData: {
-      title: null
-    }
+    formData: {}
   }
 }
 
 export const SHOWFORM_EDIT = (state, doc) => {
-  state.edit.showFormFor = doc.id
-  state.edit.formData.title = doc.title
+  state.editing = doc
 }
 
 export const HIDEFORM_EDIT = state => {
-  state.edit.showFormFor = 0
+  state.editing = {}
 }
 
 export const LOADINGFORM_NEW = state => {
@@ -26,5 +23,5 @@ export const LOADINGFORM_NEW = state => {
 }
 
 export const SET_LIST = (state, data) => {
-  state.index = data
+  state.list = data
 }

@@ -10,12 +10,8 @@ class DocumentsController < ApplicationController
   def index
     respond_to do |format|
       format.html 
-      format.json { render json: current_user.documents }
+      format.json { render json: current_user.documents, each_serializer: DocumentListSerializer }
     end
-  end
-
-  def show
-    render json: @document
   end
 
   def create

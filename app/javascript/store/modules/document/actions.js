@@ -16,7 +16,7 @@ export const showformEdit = (store, doc) => {
   store.commit('SHOWFORM_EDIT', doc)
 }
 
-export const fetchList = store => {
+export const index = store => {
   Vue.http.get('/documents').then(response => {
     store.commit('SET_LIST', response.data)
   })
@@ -41,10 +41,10 @@ export const destroy = (store, doc) => {
 }
 
 export const update = ({ state, commit }) => {
-  const id = state.edit.showFormFor
+  const { editing } = state
   Vue.http
-    .patch(`/documents/${id}`, {
-      document: state.edit.formData
+    .patch(`/documents/${editing.id}`, {
+      document: state.editing
     })
     .then(response => {
       commit('SET_LIST', response.data)

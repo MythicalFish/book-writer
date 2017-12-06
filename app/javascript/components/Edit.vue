@@ -1,16 +1,16 @@
 <template>
   <div id="edit">
-    <ul v-for="statement in statements" :key="statement.id">
+    <ul v-for="statement in list" :key="statement.id">
       <li>
         <el-input placeholder="New statement" :value="statement.summary"></el-input>
       </li>
     </ul>
-    <el-button type="primary" v-on:click='startNew' v-if="!showing.newStatement">New statement</el-button>
-    <div v-if="showing.newStatement">
-      <el-form ref="form" :model="newStatement.formData" @submit.prevent.native="handleCreate">
+    <el-button type="primary" v-on:click='showUI("newStatement")' v-if="!UI.newStatement">New statement</el-button>
+    <div v-if="UI.newStatement">
+      <el-form ref="form" :model="newStatement" @submit.prevent.native="create">
         <el-form-item label="Statement summary">
-          <el-input v-model="newStatement.formData.summary" autofocus></el-input>
-          <el-button type="primary" @click="handleCreate">Create</el-button>
+          <el-input v-model="newStatement.summary" autofocus></el-input>
+          <el-button type="primary" @click="create">Create</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -19,38 +19,23 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapActions, mapGetters } = createNamespacedHelpers('edit')
+const { mapState, mapActions, mapGetters } = createNamespacedHelpers(
+  'statement'
+)
 export default {
-  data() {
-    return {
-      showing: {
-        newStatement: false
-      }
-    }
-  },
   computed: {
     ...mapState({
-      document: state => state.document,
-      statements: state => state.statements,
-      newStatement: state => state.newStatement
+      document: state => state.document.id,
+      list: state => state.list,
+      newStatement: state => state.new,
+      UI: state => state.UI
     })
   },
   methods: {
-    ...mapActions(['fetchDocument', 'createStatement']),
-    startNew() {
-      this.showing.newStatement = true
-    },
-    cancelNew() {
-      this.showing.newStatement = false
-    },
-    handleCreate() {
-      this.createStatement().then(() => {
-        this.cancelNew()
-      })
-    }
+    ...mapActions(['index', 'create', 'update', 'showUI'])
   },
   created() {
-    this.fetchDocument(this.$route.params.id)
+    this.index(this.$route.params.id)
   }
 }
 </script>
