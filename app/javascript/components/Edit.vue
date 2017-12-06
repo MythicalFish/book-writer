@@ -1,37 +1,56 @@
 <template>
   <div id="edit">
-    <el-button v-on:click="createStatement">Create statement</el-button>
     <ul v-for="statement in statements" :key="statement.id">
       <li>
         <el-input placeholder="New statement" :value="statement.summary"></el-input>
       </li>
     </ul>
+    <el-button type="primary" v-on:click='startNew' v-if="!showing.newStatement">New statement</el-button>
+    <div v-if="showing.newStatement">
+      <el-form ref="form" :model="newStatement.formData" @submit.prevent.native="handleCreate">
+        <el-form-item label="Statement summary">
+          <el-input v-model="newStatement.formData.summary" autofocus></el-input>
+          <el-button type="primary" @click="handleCreate">Create</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapState, mapActions, mapGetters } = createNamespacedHelpers('edit')
 export default {
   data() {
     return {
-      activePhrases: [],
-      statements: []
+      showing: {
+        newStatement: false
+      }
     }
   },
+  computed: {
+    ...mapState({
+      document: state => state.document,
+      statements: state => state.statements,
+      newStatement: state => state.newStatement
+    })
+  },
   methods: {
-    fetchDocument() {
-      this.$http.get(`/documents/${this.id}`).then(response => {
-        this.statements = response.data.statements
-      })
+    ...mapActions(['fetchDocument', 'createStatement']),
+    startNew() {
+      this.showing.newStatement = true
     },
-    createStatement() {
-      this.$http.post(`/documents/${this.id}/statements`).then(response => {
-        this.statements.push(response)
+    cancelNew() {
+      this.showing.newStatement = false
+    },
+    handleCreate() {
+      this.createStatement().then(() => {
+        this.cancelNew()
       })
     }
   },
   created() {
-    this.id = this.$route.params.id
-    this.fetchDocument()
+    this.fetchDocument(this.$route.params.id)
   }
 }
 </script>

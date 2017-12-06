@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/:id', to: 'documents#index'
 
   # To be called by vue-resourses
-  resources :documents do
+  resources :documents, except: [:edit] do
     resources :statements, except: [:show]
   end
 

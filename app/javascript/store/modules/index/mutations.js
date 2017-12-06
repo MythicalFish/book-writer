@@ -5,18 +5,20 @@ export const SHOWFORM_NEW = state => {
 export const HIDEFORM_NEW = state => {
   state.new = {
     showForm: false,
-    isCreating: false
+    isLoading: false,
+    formData: {
+      title: null
+    }
   }
 }
 
-export const SHOWFORM_EDIT = (state, id) => {
-  state.edit.showForm = id
+export const SHOWFORM_EDIT = (state, doc) => {
+  state.edit.showFormFor = doc.id
+  state.edit.formData.title = doc.title
 }
 
 export const HIDEFORM_EDIT = state => {
-  state.edit = {
-    showForm: false
-  }
+  state.edit.showFormFor = 0
 }
 
 export const LOADINGFORM_NEW = state => {

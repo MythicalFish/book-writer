@@ -28,6 +28,11 @@ class DocumentsController < ApplicationController
     index
   end
 
+  def update
+    @document.update!(document_params)
+    index
+  end
+
   private
 
   def set_document

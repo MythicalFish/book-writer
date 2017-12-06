@@ -1,21 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import modules from './modules'
+import index from './modules/index'
+import edit from './modules/edit'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  modules
+  modules: {
+    index,
+    edit
+  }
 })
-
-if (module.hot) {
-  module.hot.accept(['./getters', './actions', './mutations'], () => {
-    store.hotUpdate({
-      getters: require('./getters'),
-      actions: require('./actions'),
-      mutations: require('./mutations')
-    })
-  })
-}
 
 export default store

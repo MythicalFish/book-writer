@@ -12,8 +12,8 @@ export const hideformEdit = (store, id) => {
   store.commit('HIDEFORM_EDIT', id)
 }
 
-export const showformEdit = (store, id) => {
-  store.commit('SHOWFORM_EDIT', id)
+export const showformEdit = (store, doc) => {
+  store.commit('SHOWFORM_EDIT', doc)
 }
 
 export const fetchList = store => {
@@ -34,8 +34,20 @@ export const create = store => {
     })
 }
 
-export const destroy = (store, id) => {
-  Vue.http.delete(`/documents/${id}`).then(response => {
+export const destroy = (store, doc) => {
+  Vue.http.delete(`/documents/${doc.id}`).then(response => {
     store.commit('SET_LIST', response.data)
   })
+}
+
+export const update = ({ state, commit }) => {
+  const id = state.edit.showFormFor
+  Vue.http
+    .patch(`/documents/${id}`, {
+      document: state.edit.formData
+    })
+    .then(response => {
+      commit('SET_LIST', response.data)
+      commit('HIDEFORM_EDIT')
+    })
 }

@@ -7,7 +7,10 @@ export default {
     }
   },
   edit: {
-    showForm: false
+    showFormFor: 0,
+    formData: {
+      title: null
+    }
   },
   index: [],
   active: {}
