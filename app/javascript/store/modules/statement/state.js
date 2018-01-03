@@ -4,7 +4,11 @@ export default {
     title: null
   },
   new: {},
-  editing: {},
+  editing: {
+    id: 0,
+    summary: null,
+    elaboration: null
+  },
   list: [],
   UI: {
     newStatement: false
