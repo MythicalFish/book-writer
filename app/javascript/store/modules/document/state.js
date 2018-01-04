@@ -1,13 +1,11 @@
 export default {
-  new: {
-    showForm: false,
-    isLoading: false,
-    formData: {}
-  },
+  new: {},
   editing: {
     id: 0,
     title: null
   },
   list: [],
-  active: {}
+  UI: {
+    new: false
+  }
 }

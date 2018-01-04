@@ -6,6 +6,7 @@ import VueResource from 'vue-resource'
 import App from '../components/App.vue'
 import Index from '../pages/Index'
 import Edit from '../pages/Edit'
+import 'element-ui/lib/theme-chalk/reset.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import store from '../store'
 

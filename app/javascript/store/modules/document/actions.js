@@ -1,11 +1,7 @@
 import Vue from 'vue'
 
-export const hideformNew = store => {
-  store.commit('HIDEFORM_NEW')
-}
-
-export const showformNew = store => {
-  store.commit('SHOWFORM_NEW')
+export const toggleUI = ({ commit }, key) => {
+  commit('TOGGLE_UI', key)
 }
 
 export const hideformEdit = (store, id) => {
@@ -23,14 +19,13 @@ export const index = store => {
 }
 
 export const create = store => {
-  store.commit('LOADINGFORM_NEW')
   Vue.http
     .post('/documents', {
-      document: store.state.new.formData
+      document: store.state.new
     })
     .then(response => {
       store.commit('SET_LIST', response.data)
-      store.commit('HIDEFORM_NEW')
+      store.commit('TOGGLE_UI', 'new')
     })
 }
 

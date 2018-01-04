@@ -1,10 +1,12 @@
 <template>
   <div id="edit">
-    <ul v-for="statement in list" :key="statement.id">
-      <li>
-        <el-input placeholder="New statement" :value="statement.summary"></el-input>
-      </li>
-    </ul>
+    <el-collapse>
+      <template v-for="statement in list">
+        <el-collapse-item :title="statement.summary" :key="statement.id">
+          <editor :content="statement.elaboration" />
+        </el-collapse-item>
+      </template>
+    </el-collapse>
     <el-button type="primary" v-on:click='showUI("newStatement")' v-if="!UI.newStatement">New statement</el-button>
     <div v-if="UI.newStatement">
       <el-form ref="form" :model="newStatement" @submit.prevent.native="create">
@@ -18,11 +20,13 @@
 </template>
 
 <script>
+import Editor from '../components/Editor'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions, mapGetters } = createNamespacedHelpers(
   'statement'
 )
 export default {
+  components: { Editor },
   computed: {
     ...mapState({
       document: state => state.document.id,
