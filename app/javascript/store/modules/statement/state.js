@@ -11,6 +11,7 @@ export default {
   },
   list: [],
   UI: {
-    newStatement: false
+    creating: false,
+    editing: 0
   }
 }

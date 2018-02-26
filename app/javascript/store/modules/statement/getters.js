@@ -1,6 +1,6 @@
-export const isEditing = state => id => {
-  return state.editing.id === id
-}
 export const UI = state => key => {
-  return !!state.UI[key]
+  if (Array.isArray(key)) {
+    return state.UI[key[0]] === key[1]
+  }
+  return state.UI[key]
 }

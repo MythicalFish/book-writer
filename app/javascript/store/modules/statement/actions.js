@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
-export const showUI = ({ commit }, key) => {
-  commit('SHOW_UI', key)
+export const toggleUI = ({ commit }, key) => {
+  commit('TOGGLE_UI', key)
 }
 
 export const index = ({ commit }, docID) => {
