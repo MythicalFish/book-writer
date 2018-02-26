@@ -1,15 +1,8 @@
 import Vue from 'vue'
 
 export const toggleUI = ({ commit }, key) => {
+  console.log('toggleUI')
   commit('TOGGLE_UI', key)
-}
-
-export const hideformEdit = (store, id) => {
-  store.commit('HIDEFORM_EDIT', id)
-}
-
-export const showformEdit = (store, doc) => {
-  store.commit('SHOWFORM_EDIT', doc)
 }
 
 export const index = store => {
@@ -25,12 +18,12 @@ export const create = store => {
     })
     .then(response => {
       store.commit('SET_LIST', response.data)
-      store.commit('TOGGLE_UI', 'new')
+      store.commit('TOGGLE_UI', 'creating')
     })
 }
 
-export const destroy = (store, doc) => {
-  Vue.http.delete(`/documents/${doc.id}`).then(response => {
+export const destroy = (store, id) => {
+  Vue.http.delete(`/documents/${id}`).then(response => {
     store.commit('SET_LIST', response.data)
   })
 }

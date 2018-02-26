@@ -1,13 +1,12 @@
 export const TOGGLE_UI = (state, key) => {
-  state.UI[key] = !state.UI[key]
-}
-
-export const SHOWFORM_EDIT = (state, doc) => {
-  state.editing = doc
-}
-
-export const HIDEFORM_EDIT = state => {
-  state.editing = {}
+  if (Array.isArray(key)) {
+    const oldVal = state.UI[key[0]]
+    let newVal = key[1]
+    if (oldVal === newVal) newVal = 0
+    state.UI[key[0]] = newVal
+  } else {
+    state.UI[key] = !state.UI[key]
+  }
 }
 
 export const SET_LIST = (state, data) => {

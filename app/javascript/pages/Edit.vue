@@ -32,8 +32,7 @@ export default {
   computed: {
     ...mapState({
       document: state => state.document,
-      list: state => state.list,
-      creating: state => state.new
+      list: state => state.list
     }),
     ...mapGetters(['UI'])
   },

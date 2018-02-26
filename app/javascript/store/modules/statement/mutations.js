@@ -11,6 +11,6 @@ export const TOGGLE_UI = (state, key) => {
     if (oldVal === newVal) newVal = 0
     state.UI[key[0]] = newVal
   } else {
-    state.UI[key] = !key
+    state.UI[key] = !state.UI[key]
   }
 }
