@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   # To be called by vue-resourses
   resources :documents, except: [:edit] do
-    resources :statements, except: [:show, :edit]
+    resources :statements, except: [:edit]
   end
 
 end

@@ -3,6 +3,10 @@ class StatementsController < ApplicationController
   before_action :set_document
   before_action :set_statement, except: [:index, :create]
 
+  def show
+    render json: @statement
+  end
+
   def create
     @document.statements.create!(statement_params)
     render_document
@@ -10,7 +14,6 @@ class StatementsController < ApplicationController
 
   def update
     @statement.update!(statement_params)
-    render_document
   end
   
   def destroy

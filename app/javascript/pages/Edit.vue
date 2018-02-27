@@ -3,9 +3,9 @@
     <h1>{{attributes.title}}</h1>
     <template v-for="statement in attributes.statements">
       <div :key="statement.id">
-        <el-button v-on:click='startEditStatement(statement)'>{{statement.summary}}</el-button>
+        <el-button v-on:click='startEditStatement(statement)' class="asdasd">{{statement.summary}}</el-button>
         <template v-if="isEditingStatement(statement)">
-          <editor :content="editingStatement.elaboration" />
+          <editor />
         </template>
       </div>
     </template>
@@ -28,7 +28,7 @@ const { mapState, mapActions, mapGetters } = createNamespacedHelpers('document')
 export default {
   components: { Editor },
   computed: {
-    ...mapState(['attributes', 'editingStatement', 'creatingStatement']),
+    ...mapState(['attributes', 'creatingStatement']),
     ...mapGetters(['isEditingStatement', 'isCreatingStatement'])
   },
   methods: {

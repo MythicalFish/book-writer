@@ -1,4 +1,4 @@
 class DocumentSerializer < ActiveModel::Serializer
   attributes :id, :title, :path
-  has_many :statements
+  has_many :statements, serializer: StatementListSerializer
 end

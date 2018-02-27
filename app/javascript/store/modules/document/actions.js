@@ -19,16 +19,12 @@ export const createStatement = ({ state, commit }) => {
   })
 }
 
-export const updateStatement = ({ state, commit }) => {
-  const docID = state.id
+export const updateStatement = ({ state }) => {
+  const docID = state.attributes.id
   const id = state.editingStatement.id
-  Vue.http
-    .patch(`/documents/${docID}/statements/${id}`, {
-      statement: state.editingStatement
-    })
-    .then(response => {
-      commit('SET_DOCUMENT', response.data)
-    })
+  Vue.http.patch(`/documents/${docID}/statements/${id}`, {
+    statement: state.editingStatement
+  })
 }
 
 export const startCreateStatement = store => {
@@ -38,8 +34,12 @@ export const stopCreateStatement = store => {
   store.commit('STOP_CREATE_STATEMENT')
 }
 
-export const startEditStatement = (store, statement) => {
-  store.commit('START_EDIT_STATEMENT', statement)
+export const startEditStatement = ({ state, commit }, statement) => {
+  Vue.http
+    .get(`/documents/${state.attributes.id}/statements/${statement.id}`)
+    .then(response => {
+      commit('START_EDIT_STATEMENT', response.data)
+    })
 }
 export const stopEditStatement = store => {
   store.commit('STOP_EDIT_STATEMENT')
