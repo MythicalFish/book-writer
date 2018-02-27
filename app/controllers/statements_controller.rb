@@ -3,29 +3,25 @@ class StatementsController < ApplicationController
   before_action :set_document
   before_action :set_statement, except: [:index, :create]
 
-  def index
-    render_list
-  end
-
   def create
     @document.statements.create!(statement_params)
-    render_list
+    render_document
   end
 
   def update
     @statement.update!(statement_params)
-    render_list
+    render_document
   end
   
   def destroy
     @statement.destroy!
-    render_list
+    render_document
   end
   
   private
   
-  def render_list
-    render json: @document.statements
+  def render_document
+    render json: @document
   end
 
   def statement_params

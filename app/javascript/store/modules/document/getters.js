@@ -1,6 +1,7 @@
-export const UI = state => key => {
-  if (Array.isArray(key)) {
-    return state.UI[key[0]] === key[1]
-  }
-  return state.UI[key]
+export const isEditingStatement = state => statement => {
+  return state.editingStatement.id === statement.id
+}
+
+export const isCreatingStatement = state => {
+  return !!state.creatingStatement
 }

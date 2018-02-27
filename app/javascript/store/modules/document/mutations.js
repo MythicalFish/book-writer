@@ -1,14 +1,19 @@
-export const TOGGLE_UI = (state, key) => {
-  if (Array.isArray(key)) {
-    const oldVal = state.UI[key[0]]
-    let newVal = key[1]
-    if (oldVal === newVal) newVal = 0
-    state.UI[key[0]] = newVal
-  } else {
-    state.UI[key] = !state.UI[key]
-  }
+export const SET_DOCUMENT = (state, doc) => {
+  state.attributes = doc
 }
 
-export const SET_LIST = (state, data) => {
-  state.list = data
+export const START_EDIT_STATEMENT = (state, statement) => {
+  state.editingStatement = statement
+}
+
+export const STOP_EDIT_STATEMENT = state => {
+  state.editingStatement = false
+}
+
+export const START_CREATE_STATEMENT = state => {
+  state.creatingStatement = {}
+}
+
+export const STOP_CREATE_STATEMENT = state => {
+  state.creatingStatement = false
 }

@@ -2,13 +2,11 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  # Root and /:id both go to documents#index, and just let vue
-  # do the rest. :)
-  root to: 'documents#index', as: 'dashboard'
-  get '/:id', to: 'documents#index'
+  root to: 'documents#index'
+  get '/:id', to: 'documents#index' # Vue takes the ID and renders the "show" view
 
   # To be called by vue-resourses
-  resources :documents, except: [:show, :edit] do
+  resources :documents, except: [:edit] do
     resources :statements, except: [:show, :edit]
   end
 

@@ -14,6 +14,10 @@ class DocumentsController < ApplicationController
     end
   end
 
+  def show 
+    render json: @document
+  end
+
   def create
     current_user.documents.create(document_params)
     index

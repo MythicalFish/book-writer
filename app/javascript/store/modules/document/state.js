@@ -1,8 +1,9 @@
 export default {
-  new: {},
-  list: [],
-  UI: {
-    creating: false,
-    renaming: 0
-  }
+  attributes: {
+    id: null,
+    title: null,
+    statements: []
+  },
+  editingStatement: false,
+  creatingStatement: false
 }

@@ -1,37 +1,33 @@
 <template>
   <div id="index" class="container">
-    <el-button type="primary" v-on:click='toggleUI("creating")' v-if="!UI('creating')">New document</el-button>
-    <template v-if="UI('creating')">
-      <el-form ref="form" :model="newDoc" @submit.prevent.native="create">
+    <el-button type="primary" v-on:click="startCreate" v-if="!isCreating">New document</el-button>
+    <template v-if="isCreating">
+      <el-form ref="form" :model="creating" @submit.prevent.native="create">
         <el-form-item label="Document title">
-          <el-input v-model="newDoc.title" autofocus></el-input>
+          <el-input v-model="creating.title" autofocus></el-input>
           <el-button type="primary" @click="create">Create</el-button>
         </el-form-item>
       </el-form>
     </template>
-    <document-list :list="list" :toggleUI="toggleUI" :UI="UI" :update="update" :destroy="destroy" />
+    <document-list />
   </div>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
 import DocumentList from '../components/DocumentList'
-const { mapState, mapActions, mapGetters } = createNamespacedHelpers('document')
+const { mapState, mapActions, mapGetters } = createNamespacedHelpers(
+  'documents'
+)
 const components = { DocumentList }
 export default {
   components,
   computed: {
-    ...mapState({
-      list: state => state.list,
-      newDoc: state => state.new
-    }),
-    ...mapGetters(['UI'])
+    ...mapState(['creating']),
+    ...mapGetters(['isCreating'])
   },
   methods: {
-    ...mapActions(['toggleUI', 'index', 'create', 'update', 'destroy'])
-  },
-  created() {
-    this.index()
+    ...mapActions(['startCreate', 'create'])
   }
 }
 </script>

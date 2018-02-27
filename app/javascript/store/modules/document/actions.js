@@ -1,41 +1,46 @@
 import Vue from 'vue'
 
-export const toggleUI = ({ commit }, key) => {
-  console.log('toggleUI')
-  commit('TOGGLE_UI', key)
-}
-
-export const index = store => {
-  Vue.http.get('/documents').then(response => {
-    store.commit('SET_LIST', response.data)
+export const fetch = ({ commit }, id) => {
+  Vue.http.get(`/documents/${id}`).then(response => {
+    commit('SET_DOCUMENT', response.data)
   })
 }
 
-export const create = store => {
-  Vue.http
-    .post('/documents', {
-      document: store.state.new
-    })
-    .then(response => {
-      store.commit('SET_LIST', response.data)
-      store.commit('TOGGLE_UI', 'creating')
-    })
-}
-
-export const destroy = (store, id) => {
-  Vue.http.delete(`/documents/${id}`).then(response => {
-    store.commit('SET_LIST', response.data)
+export const createStatement = ({ state, commit }) => {
+  return new Promise(resolve => {
+    Vue.http
+      .post(`/documents/${state.attributes.id}/statements`, {
+        statement: state.creatingStatement
+      })
+      .then(response => {
+        commit('SET_LIST', response.data)
+        resolve()
+      })
   })
 }
 
-export const update = ({ state, commit }) => {
-  const { editing } = state
+export const updateStatement = ({ state, commit }) => {
+  const docID = state.id
+  const id = state.editingStatement.id
   Vue.http
-    .patch(`/documents/${editing.id}`, {
-      document: state.editing
+    .patch(`/documents/${docID}/statements/${id}`, {
+      statement: state.editingStatement
     })
     .then(response => {
-      commit('SET_LIST', response.data)
-      commit('HIDEFORM_EDIT')
+      commit('SET_DOCUMENT', response.data)
     })
+}
+
+export const startCreateStatement = store => {
+  store.commit('START_CREATE_STATEMENT')
+}
+export const stopCreateStatement = store => {
+  store.commit('STOP_CREATE_STATEMENT')
+}
+
+export const startEditStatement = (store, statement) => {
+  store.commit('START_EDIT_STATEMENT', statement)
+}
+export const stopEditStatement = store => {
+  store.commit('STOP_EDIT_STATEMENT')
 }
