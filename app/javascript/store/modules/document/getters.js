@@ -1,6 +1,3 @@
-export const UI = state => key => {
-  if (Array.isArray(key)) {
-    return state.UI[key[0]] === key[1]
-  }
-  return state.UI[key]
+export const isRenaming = state => doc => {
+  return state.renaming.id === doc.id
 }

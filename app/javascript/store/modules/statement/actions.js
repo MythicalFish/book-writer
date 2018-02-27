@@ -1,9 +1,5 @@
 import Vue from 'vue'
 
-export const toggleUI = ({ commit }, key) => {
-  commit('TOGGLE_UI', key)
-}
-
 export const index = ({ commit }, docID) => {
   Vue.http.get(`/documents/${docID}/statements`).then(response => {
     commit('SET_DOCUMENT', docID)

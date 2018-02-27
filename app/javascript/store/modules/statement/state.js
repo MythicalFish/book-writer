@@ -9,9 +9,5 @@ export default {
     summary: null,
     elaboration: null
   },
-  list: [],
-  UI: {
-    creating: false,
-    editing: 0
-  }
+  list: []
 }

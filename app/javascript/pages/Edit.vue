@@ -3,17 +3,17 @@
     <h1>{{document.title}}</h1>
     <template v-for="statement in list">
       <div :key="statement.id">
-        <el-button v-on:click='toggleUI(["editing", statement.id])'>{{statement.summary}}</el-button>
-        <template v-if="UI(['editing', statement.id])">
+        <el-button v-on:click='toggle(["editing", statement.id])'>{{statement.summary}}</el-button>
+        <template v-if="isVisible(['editing', statement.id])">
           <editor :content="statement.elaboration" />
         </template>
       </div>
     </template>
-    <el-button type="primary" v-on:click="toggleUI('creating')" v-if="!UI('creating')">New statement</el-button>
-    <div v-if="UI('creating')">
-      <el-form ref="form" :model="creating" @submit.prevent.native="create">
+    <el-button type="primary" v-on:click="toggle(['creating'])" v-if="!isVisible(['creating'])">New statement</el-button>
+    <div v-if="isVisible(['creating'])">
+      <el-form ref="form" @submit.prevent.native="create">
         <el-form-item label="Statement summary">
-          <el-input v-model="creating.summary" autofocus></el-input>
+          <el-input autofocus></el-input>
           <el-button type="primary" @click="create">Create</el-button>
         </el-form-item>
       </el-form>
@@ -24,20 +24,27 @@
 <script>
 import Editor from '../components/Editor'
 import { createNamespacedHelpers } from 'vuex'
-const { mapState, mapActions, mapGetters } = createNamespacedHelpers(
-  'statement'
-)
+import { mapState, mapActions, mapGetters } from 'vuex'
 export default {
   components: { Editor },
   computed: {
-    ...mapState({
+    ...mapState('statement', {
       document: state => state.document,
       list: state => state.list
     }),
-    ...mapGetters(['UI'])
+    ...mapGetters('UI', ['UIisVisible'])
   },
   methods: {
-    ...mapActions(['index', 'create', 'update', 'toggleUI'])
+    ...mapActions('statement', ['index', 'create', 'update']),
+    ...mapActions('UI', ['toggleUI']),
+    toggle(keys) {
+      keys.unshift('statement')
+      this.toggleUI(keys)
+    },
+    isVisible(keys) {
+      keys.unshift('statement')
+      return this.UIisVisible(keys)
+    }
   },
   created() {
     this.index(this.$route.params.id)
