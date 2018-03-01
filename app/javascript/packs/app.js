@@ -9,6 +9,7 @@ import Index from '../pages/Index'
 import Edit from '../pages/Edit'
 import 'element-ui/lib/theme-chalk/reset.css'
 import 'element-ui/lib/theme-chalk/index.css'
+import '../styles/app.css'
 import store from '../store'
 
 Vue.use(TurbolinksAdapter)

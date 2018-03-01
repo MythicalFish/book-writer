@@ -1,0 +1,14 @@
+.document {
+  padding: 8rem;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+  & button.statement {
+    display: block;
+    width: 100%;
+    border: none;
+    text-align: left;
+    font-size: 1.2em;
+  }
+  & div.statement {
+    border: 1px solid #eee;
+  }
+}
