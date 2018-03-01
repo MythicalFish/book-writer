@@ -1,11 +1,14 @@
 <template>
   <div id="edit" class="container">
     <h1>{{attributes.title}}</h1>
-    <template v-for="statement in attributes.statements">
+    <template v-for="statement in statements">
       <div :key="statement.id">
-        <el-button v-on:click='startEditStatement(statement)' class="asdasd">{{statement.summary}}</el-button>
-        <template v-if="isEditingStatement(statement)">
-          <editor />
+        <template v-if="isStatementFocused(statement)">
+          <el-input v-model="statement.summary" v-on:change="updateStatement"></el-input>
+          <editor :statement="statement" :onChange="updateStatement" />
+        </template>
+        <template v-else>
+          <el-button v-on:click='focusStatement(statement)' style="width: 100%;">{{statement.summary}}</el-button>
         </template>
       </div>
     </template>
@@ -28,8 +31,8 @@ const { mapState, mapActions, mapGetters } = createNamespacedHelpers('document')
 export default {
   components: { Editor },
   computed: {
-    ...mapState(['attributes', 'creatingStatement']),
-    ...mapGetters(['isEditingStatement', 'isCreatingStatement'])
+    ...mapState(['attributes', 'statements', 'creatingStatement']),
+    ...mapGetters(['isStatementFocused', 'isCreatingStatement'])
   },
   methods: {
     ...mapActions([
@@ -37,7 +40,7 @@ export default {
       'createStatement',
       'updateStatement',
       'startCreateStatement',
-      'startEditStatement'
+      'focusStatement'
     ])
   },
   created() {

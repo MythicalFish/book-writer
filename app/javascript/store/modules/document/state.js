@@ -1,9 +1,6 @@
 export default {
-  attributes: {
-    id: null,
-    title: null,
-    statements: []
-  },
-  editingStatement: false,
+  attributes: {},
+  statements: [],
+  currentStatement: 0,
   creatingStatement: false
 }

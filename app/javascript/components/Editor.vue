@@ -1,51 +1,39 @@
 <template>
-  <quill-editor v-model="editingStatement.elaboration"
-                ref="editor"
-                :options="editorOptions"
-                @blur="onEditorBlur($event)"
-                @focus="onEditorFocus($event)"
-                @change="onEditorChange($event)"
-                @ready="onEditorReady($event)">
-  </quill-editor>
+  <div v-if="statement.elaboration">
+    <quill-editor 
+      ref="editor"
+      :options="quillOptions"
+      @change="onEditorChange($event)"
+      v-model="statement.elaboration">
+    </quill-editor>
+  </div>
 </template>
 
 <script>
 import { quillEditor } from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
+import { quillOptions } from '../config/quill'
 import debounce from 'debounce'
 import { mapActions, mapState } from 'vuex'
 export default {
-  components: { quillEditor },
+  props: ['statement', 'onChange'],
   data() {
     return {
-      editorOptions: {}
+      quillOptions
     }
   },
+  components: { quillEditor },
   methods: {
-    ...mapActions('document', ['updateStatement']),
-    onEditorBlur(quill) {
-      console.log('editor blur!', quill)
-    },
-    onEditorFocus(quill) {
-      console.log('editor focus!', quill)
-    },
-    onEditorReady(quill) {
-      console.log('editor ready!', quill)
-    },
     onEditorChange: debounce(function({ quill, html, text }) {
-      this.editingStatement.elaboration = html
-      this.updateStatement(html)
+      this.statement.elaboration = html
+      this.onChange(html)
     }, 500)
   },
   computed: {
     editor() {
       return this.$refs.editor.quill
-    },
-    ...mapState('document', ['editingStatement'])
-  },
-  mounted() {
-    console.log('this is current quill instance object', this.editor)
+    }
   }
 }
 </script>

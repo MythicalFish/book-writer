@@ -1,4 +1,10 @@
 import Vue from 'vue'
+import { currentStatement } from './getters'
+
+const statementURL = (state, id) => {
+  const docID = state.attributes.id
+  return `/documents/${docID}/statements/${id}`
+}
 
 export const fetch = ({ commit }, id) => {
   Vue.http.get(`/documents/${id}`).then(response => {
@@ -20,11 +26,10 @@ export const createStatement = ({ state, commit }) => {
 }
 
 export const updateStatement = ({ state }) => {
-  const docID = state.attributes.id
-  const id = state.editingStatement.id
-  Vue.http.patch(`/documents/${docID}/statements/${id}`, {
-    statement: state.editingStatement
-  })
+  Vue.http.patch(
+    statementURL(state, state.currentStatement),
+    currentStatement(state)
+  )
 }
 
 export const startCreateStatement = store => {
@@ -34,12 +39,10 @@ export const stopCreateStatement = store => {
   store.commit('STOP_CREATE_STATEMENT')
 }
 
-export const startEditStatement = ({ state, commit }, statement) => {
-  Vue.http
-    .get(`/documents/${state.attributes.id}/statements/${statement.id}`)
-    .then(response => {
-      commit('START_EDIT_STATEMENT', response.data)
-    })
+export const focusStatement = ({ state, commit }, statement) => {
+  Vue.http.get(statementURL(state, statement.id)).then(response => {
+    commit('FOCUS_STATEMENT', response.data)
+  })
 }
 export const stopEditStatement = store => {
   store.commit('STOP_EDIT_STATEMENT')
