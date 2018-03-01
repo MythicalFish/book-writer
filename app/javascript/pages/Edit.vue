@@ -4,15 +4,15 @@
     <template v-for="statement in statements">
       <div :key="statement.id">
         <template v-if="isStatementFocused(statement)">
-          <el-input v-model="statement.summary" v-on:change="updateStatement"></el-input>
-          <editor :statement="statement" :onChange="updateStatement" />
+          <el-input v-model="statement.summary" v-on:change="onChangeStatement"></el-input>
+          <editor :statement="statement" :onChange="onChangeStatement" />
         </template>
         <template v-else>
           <el-button v-on:click='focusStatement(statement)' style="width: 100%;">{{statement.summary}}</el-button>
         </template>
       </div>
     </template>
-    <el-button type="primary" v-on:click="startCreateStatement" v-if="!isCreatingStatement">New statement</el-button>
+    <el-button type="primary" v-on:click="newStatement" v-if="!isCreatingStatement">New statement</el-button>
     <div v-if="isCreatingStatement">
       <el-form ref="form" :model="creatingStatement" @submit.prevent.native="createStatement">
         <el-form-item label="Statement summary">
@@ -27,6 +27,7 @@
 <script>
 import Editor from '../components/Editor'
 import { createNamespacedHelpers } from 'vuex'
+import debounce from 'debounce'
 const { mapState, mapActions, mapGetters } = createNamespacedHelpers('document')
 export default {
   components: { Editor },
@@ -39,9 +40,24 @@ export default {
       'fetch',
       'createStatement',
       'updateStatement',
-      'startCreateStatement',
+      'statementChanged',
+      'statementSaved',
+      'newStatement',
       'focusStatement'
-    ])
+    ]),
+    onChangeStatement() {
+      this.statementChanged()
+      this.debounceUpdateStatement()
+    },
+    debounceUpdateStatement: debounce(function() {
+      this.updateStatement().then(() => {
+        this.statementSaved()
+        this.$notify({
+          title: 'Saved',
+          duration: 500
+        })
+      })
+    }, 500)
   },
   created() {
     this.fetch(this.$route.params.id)

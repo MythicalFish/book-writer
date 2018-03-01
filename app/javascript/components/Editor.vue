@@ -1,12 +1,10 @@
 <template>
-  <div v-if="statement.elaboration">
-    <quill-editor 
-      ref="editor"
-      :options="quillOptions"
-      @change="onEditorChange($event)"
-      v-model="statement.elaboration">
-    </quill-editor>
-  </div>
+  <quill-editor 
+    ref="editor"
+    :options="quillOptions"
+    @change="onChange($event)"
+    v-model="statement.elaboration">
+  </quill-editor>
 </template>
 
 <script>
@@ -24,12 +22,6 @@ export default {
     }
   },
   components: { quillEditor },
-  methods: {
-    onEditorChange: debounce(function({ quill, html, text }) {
-      this.statement.elaboration = html
-      this.onChange(html)
-    }, 500)
-  },
   computed: {
     editor() {
       return this.$refs.editor.quill

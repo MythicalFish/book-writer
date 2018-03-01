@@ -3,6 +3,7 @@ import TurbolinksAdapter from 'vue-turbolinks'
 import ElementUI from 'element-ui'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import Notifications from 'vue-notification'
 import App from '../components/App.vue'
 import Index from '../pages/Index'
 import Edit from '../pages/Edit'
@@ -14,6 +15,7 @@ Vue.use(TurbolinksAdapter)
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(ElementUI)
+Vue.use(Notifications)
 
 const router = new VueRouter({
   routes: [

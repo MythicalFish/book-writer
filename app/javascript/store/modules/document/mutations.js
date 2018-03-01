@@ -13,14 +13,18 @@ export const FOCUS_STATEMENT = (state, response) => {
   state.statements[id].elaboration = elaboration
 }
 
-export const STOP_EDIT_STATEMENT = state => {
-  state.currentStatement = 0
-}
-
-export const START_CREATE_STATEMENT = state => {
+export const NEW_STATEMENT = state => {
   state.creatingStatement = {}
 }
 
 export const STOP_CREATE_STATEMENT = state => {
   state.creatingStatement = false
+}
+
+export const STATEMENT_CHANGED = state => {
+  state.statementSaved = false
+}
+
+export const STATEMENT_SAVED = state => {
+  state.statementSaved = true
 }

@@ -26,17 +26,14 @@ export const createStatement = ({ state, commit }) => {
 }
 
 export const updateStatement = ({ state }) => {
-  Vue.http.patch(
+  return Vue.http.patch(
     statementURL(state, state.currentStatement),
     currentStatement(state)
   )
 }
 
-export const startCreateStatement = store => {
-  store.commit('START_CREATE_STATEMENT')
-}
-export const stopCreateStatement = store => {
-  store.commit('STOP_CREATE_STATEMENT')
+export const newStatement = store => {
+  store.commit('NEW_STATEMENT')
 }
 
 export const focusStatement = ({ state, commit }, statement) => {
@@ -44,6 +41,11 @@ export const focusStatement = ({ state, commit }, statement) => {
     commit('FOCUS_STATEMENT', response.data)
   })
 }
-export const stopEditStatement = store => {
-  store.commit('STOP_EDIT_STATEMENT')
+
+export const statementChanged = ({ commit }) => {
+  commit('STATEMENT_CHANGED')
+}
+
+export const statementSaved = ({ commit }) => {
+  commit('STATEMENT_SAVED')
 }
