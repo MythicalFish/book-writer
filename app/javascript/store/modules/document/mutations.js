@@ -14,6 +14,10 @@ export const FOCUS_STATEMENT = (state, response) => {
   state.statements[position].elaboration = elaboration
 }
 
+export const BLUR_STATEMENT = state => {
+  state.focusedStatement = 0
+}
+
 export const NEW_STATEMENT = state => {
   state.creatingStatement = {}
 }

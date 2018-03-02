@@ -43,6 +43,17 @@ export const focusStatement = ({ state, commit }, statement) => {
   })
 }
 
+export const blurStatement = store => {
+  const { state, commit } = store
+  if (state.statementSaved) {
+    commit('BLUR_STATEMENT')
+  } else {
+    setTimeout(() => {
+      blurStatement(store)
+    }, 100)
+  }
+}
+
 export const statementChanged = ({ commit }) => {
   commit('STATEMENT_CHANGED')
 }

@@ -2,13 +2,13 @@
   <div class="container">
     <div class="document">
       <h1 class="document-title">{{attributes.title}}</h1>
-      <draggable v-model="statementIDs" @end="reorderStatements" :options="draggableOpts">
+      <draggable v-model="statementIDs" @start="blurStatement" @end="reorderStatements" :options="draggableOpts">
         <div v-for="s in statements" :key="s.id" class="statement">
-          <template v-if="isStatementFocused(s)">
+          <div v-if="isStatementFocused(s)" class="maximized">
             <editor :statement="s" :onChange="onChangeStatement" />
-          </template>
-          <div v-else class="statement-minimized">
-            <button v-on:click='focusStatement(s)'>{{s.summary}}</button>
+          </div>
+          <div v-else class="minimized">
+            <button class="statement-summary" v-on:click='focusStatement(s)'>{{s.summary}}</button>
             <div class="drag-handle">
               <i class="el-icon-d-caret"></i>
             </div>
@@ -59,6 +59,7 @@ export default {
       'statementSaved',
       'newStatement',
       'focusStatement',
+      'blurStatement',
       'reorderStatements'
     ]),
     onChangeStatement() {
@@ -77,6 +78,14 @@ export default {
   },
   created() {
     this.fetch(this.$route.params.id)
+  },
+  mounted() {
+    document.onkeydown = evt => {
+      evt = evt || window.event
+      if (evt.keyCode == 27) {
+        this.blurStatement()
+      }
+    }
   }
 }
 </script>

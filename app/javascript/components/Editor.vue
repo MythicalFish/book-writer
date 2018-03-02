@@ -1,6 +1,6 @@
 <template>
-  <div class="statement-editor">
-    <el-input v-model="statement.summary" v-on:change="onChange"></el-input>
+  <div>
+    <input class="statement-summary" type="text" v-model="statement.summary" v-on:change="onChange" autofocus />
     <quill-editor 
       ref="editor"
       :options="quillOptions"

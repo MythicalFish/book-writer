@@ -6,15 +6,17 @@
     font-size: 2rem;
   }
   & .statement {
-    & .statement-minimized {
+    & .statement-summary {
+      padding: var(--p1);
+      font-size: 1.2rem;
+      text-align: left;
+    }
+    & .minimized {
       display: flex;
       & > button {
         display: block;
         border: none;
-        text-align: left;
-        font-size: 1.2em;
         flex: 1 1 auto;
-        outline: none;
         cursor: pointer;
         &:hover {
           background-color: #fafafa;
@@ -23,6 +25,12 @@
       & > .drag-handle {
         flex: none;
         cursor: move;
+      }
+    }
+    & .maximized {
+      & input[type='text'] {
+        border: none;
+        width: 100%;
       }
     }
   }
