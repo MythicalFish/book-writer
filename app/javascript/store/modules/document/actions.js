@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { currentStatement } from './getters'
+import { focusedStatement } from './getters'
 
 const statementURL = (state, id) => {
   const docID = state.attributes.id
@@ -19,7 +19,8 @@ export const createStatement = ({ state, commit }) => {
         statement: state.creatingStatement
       })
       .then(response => {
-        commit('SET_LIST', response.data)
+        commit('SET_DOCUMENT', response.data)
+        commit('STATEMENT_CREATED')
         resolve()
       })
   })
@@ -27,8 +28,8 @@ export const createStatement = ({ state, commit }) => {
 
 export const updateStatement = ({ state }) => {
   return Vue.http.patch(
-    statementURL(state, state.currentStatement),
-    currentStatement(state)
+    statementURL(state, focusedStatement(state).id),
+    focusedStatement(state)
   )
 }
 
@@ -48,4 +49,21 @@ export const statementChanged = ({ commit }) => {
 
 export const statementSaved = ({ commit }) => {
   commit('STATEMENT_SAVED')
+}
+
+export const deleteStatement = ({ state, commit }, statement) => {
+  Vue.http.delete(statementURL(state, statement.id)).then(response => {
+    commit('SET_DOCUMENT', response.data)
+  })
+}
+export const reorderStatements = ({ state, commit }, event) => {
+  const { oldIndex, newIndex } = event
+  Vue.http
+    .patch(`/documents/${state.attributes.id}/statements`, {
+      oldIndex,
+      newIndex
+    })
+    .then(response => {
+      commit('SET_DOCUMENT', response.data)
+    })
 }

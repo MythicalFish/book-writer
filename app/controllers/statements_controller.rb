@@ -1,7 +1,7 @@
 class StatementsController < ApplicationController
 
   before_action :set_document
-  before_action :set_statement, except: [:index, :create]
+  before_action :set_statement, except: [:index, :create, :reorder]
 
   def show
     render json: @statement
@@ -18,6 +18,11 @@ class StatementsController < ApplicationController
   
   def destroy
     @statement.destroy!
+    render_document
+  end
+
+  def reorder
+    @document.move_statement params[:oldIndex], params[:newIndex]
     render_document
   end
   

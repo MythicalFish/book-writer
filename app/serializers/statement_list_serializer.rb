@@ -1,3 +1,3 @@
 class StatementListSerializer < ActiveModel::Serializer
-  attributes :id, :summary
+  attributes :id, :summary, :position
 end

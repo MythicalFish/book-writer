@@ -1,13 +1,13 @@
 export const isStatementFocused = state => statement => {
-  return state.currentStatement === statement.id
+  return state.focusedStatement === statement.position
 }
 
 export const isCreatingStatement = state => {
   return !!state.creatingStatement
 }
 
-export const currentStatement = state => {
-  const id = state.currentStatement
+export const focusedStatement = state => {
+  const id = state.focusedStatement
   if (!id) return null
   return state.statements[id]
 }

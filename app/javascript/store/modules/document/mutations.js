@@ -2,22 +2,23 @@ export const SET_DOCUMENT = (state, doc) => {
   state.attributes.id = doc.id
   state.attributes.title = doc.title
   state.statements = doc.statements.reduce((map, obj) => {
-    map[obj.id] = obj
+    map[obj.position] = obj
     return map
   }, {})
+  state.statementIDs = doc.statements.map(s => s.id)
 }
 
 export const FOCUS_STATEMENT = (state, response) => {
-  const { id, elaboration } = response
-  state.currentStatement = id
-  state.statements[id].elaboration = elaboration
+  const { position, elaboration } = response
+  state.focusedStatement = position
+  state.statements[position].elaboration = elaboration
 }
 
 export const NEW_STATEMENT = state => {
   state.creatingStatement = {}
 }
 
-export const STOP_CREATE_STATEMENT = state => {
+export const STATEMENT_CREATED = state => {
   state.creatingStatement = false
 }
 

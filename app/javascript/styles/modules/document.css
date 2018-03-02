@@ -1,14 +1,29 @@
 .document {
   padding: 8rem;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
-  & button.statement {
-    display: block;
-    width: 100%;
-    border: none;
-    text-align: left;
-    font-size: 1.2em;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.05);
+  & .document-title {
+    text-align: center;
+    font-size: 2rem;
   }
-  & div.statement {
-    border: 1px solid #eee;
+  & .statement {
+    & .statement-minimized {
+      display: flex;
+      & > button {
+        display: block;
+        border: none;
+        text-align: left;
+        font-size: 1.2em;
+        flex: 1 1 auto;
+        outline: none;
+        cursor: pointer;
+        &:hover {
+          background-color: #fafafa;
+        }
+      }
+      & > .drag-handle {
+        flex: none;
+        cursor: move;
+      }
+    }
   }
 }

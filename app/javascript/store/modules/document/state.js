@@ -1,7 +1,8 @@
 export default {
   attributes: {},
-  statements: [],
-  currentStatement: 0,
+  statements: {},
+  statementIDs: [],
+  focusedStatement: 0,
   creatingStatement: false,
   statementSaved: true
 }

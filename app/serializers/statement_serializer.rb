@@ -1,3 +1,3 @@
 class StatementSerializer < ActiveModel::Serializer
-  attributes :id, :summary, :elaboration
+  attributes :id, :summary, :position, :elaboration
 end

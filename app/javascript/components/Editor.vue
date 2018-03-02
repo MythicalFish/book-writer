@@ -1,10 +1,13 @@
 <template>
-  <quill-editor 
-    ref="editor"
-    :options="quillOptions"
-    @change="onChange($event)"
-    v-model="statement.elaboration">
-  </quill-editor>
+  <div class="statement-editor">
+    <el-input v-model="statement.summary" v-on:change="onChange"></el-input>
+    <quill-editor 
+      ref="editor"
+      :options="quillOptions"
+      @change="onChange($event)"
+      v-model="statement.elaboration">
+    </quill-editor>
+  </div>
 </template>
 
 <script>

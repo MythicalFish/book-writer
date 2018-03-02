@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124110304) do
+ActiveRecord::Schema.define(version: 20180302073223) do
 
   create_table "chapters", force: :cascade do |t|
     t.string "title", limit: 255
@@ -63,10 +63,10 @@ ActiveRecord::Schema.define(version: 20171124110304) do
   create_table "statements", force: :cascade do |t|
     t.string "summary"
     t.text "elaboration"
-    t.integer "order", default: 0
+    t.integer "position", default: 0
     t.integer "document_id"
     t.index ["document_id"], name: "index_statements_on_document_id"
-    t.index ["order"], name: "index_statements_on_order"
+    t.index ["position"], name: "index_statements_on_position"
   end
 
   create_table "users", force: :cascade do |t|

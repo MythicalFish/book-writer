@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # To be called by vue-resourses
   resources :documents, except: [:edit] do
     resources :statements, except: [:edit]
+    patch '/statements', to: 'statements#reorder'
   end
 
 end

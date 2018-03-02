@@ -1,25 +1,24 @@
 <template>
   <div class="container">
     <div class="document">
-      <h1>{{attributes.title}}</h1>
-      <template v-for="statement in statements">
-        <div :key="statement.id">
-          <div class="statement" v-if="isStatementFocused(statement)">
-            <el-input v-model="statement.summary" v-on:change="onChangeStatement"></el-input>
-            <editor :statement="statement" :onChange="onChangeStatement" />
-          </div>
-          <template v-else>
-            <button v-on:click='focusStatement(statement)' class="statement">{{statement.summary}}</button>
+      <h1 class="document-title">{{attributes.title}}</h1>
+      <draggable v-model="statementIDs" @end="reorderStatements" :options="draggableOpts">
+        <div v-for="s in statements" :key="s.id" class="statement">
+          <template v-if="isStatementFocused(s)">
+            <editor :statement="s" :onChange="onChangeStatement" />
           </template>
+          <div v-else class="statement-minimized">
+            <button v-on:click='focusStatement(s)'>{{s.summary}}</button>
+            <div class="drag-handle">
+              <i class="el-icon-d-caret"></i>
+            </div>
+          </div>
         </div>
-      </template>
-      <el-button type="primary" v-on:click="newStatement" v-if="!isCreatingStatement">New statement</el-button>
+      </draggable>
+      <el-button style="width: 100%;" v-on:click="newStatement" icon="el-icon-plus" v-if="!isCreatingStatement">New statement</el-button>
       <div v-if="isCreatingStatement">
         <el-form ref="form" :model="creatingStatement" @submit.prevent.native="createStatement">
-          <el-form-item label="Statement summary">
-            <el-input v-model="creatingStatement.summary" autofocus></el-input>
-            <el-button type="primary" @click="createStatement">Create</el-button>
-          </el-form-item>
+          <el-input v-model="creatingStatement.summary" autofocus></el-input>
         </el-form>
       </div>
     </div>
@@ -30,12 +29,26 @@
 import Editor from '../components/Editor'
 import { createNamespacedHelpers } from 'vuex'
 import debounce from 'debounce'
+import draggable from 'vuedraggable'
 const { mapState, mapActions, mapGetters } = createNamespacedHelpers('document')
 export default {
-  components: { Editor },
+  components: { Editor, draggable },
+  data() {
+    return {
+      draggableOpts: {
+        draggable: '.statement',
+        handle: '.drag-handle'
+      }
+    }
+  },
   computed: {
     ...mapState(['attributes', 'statements', 'creatingStatement']),
-    ...mapGetters(['isStatementFocused', 'isCreatingStatement'])
+    ...mapGetters(['isStatementFocused', 'isCreatingStatement', 'statement']),
+    statementIDs: {
+      get() {
+        return this.$store.state.statementIDs
+      }
+    }
   },
   methods: {
     ...mapActions([
@@ -45,7 +58,8 @@ export default {
       'statementChanged',
       'statementSaved',
       'newStatement',
-      'focusStatement'
+      'focusStatement',
+      'reorderStatements'
     ]),
     onChangeStatement() {
       this.statementChanged()
